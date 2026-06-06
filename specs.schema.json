@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/bentheautomator/wireframe-spec/main/schemas/specs.schema.json",
+  "title": "specs.md sidecar",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "endpoints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["method", "path", "summary"],
+        "additionalProperties": false,
+        "properties": {
+          "method":      { "type": "string" },
+          "path":        { "type": "string" },
+          "summary":     { "type": "string" },
+          "request":     { "type": "string" },
+          "response":    { "type": "string" },
+          "status":      { "type": "string" }
+        },
+        "patternProperties": { "^x-": { "type": "string" } }
+      }
+    },
+    "models": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["model", "field", "type"],
+        "additionalProperties": false,
+        "properties": {
+          "model":       { "type": "string" },
+          "field":       { "type": "string" },
+          "type":        { "type": "string" },
+          "required":    { "type": "string" },
+          "description": { "type": "string" }
+        },
+        "patternProperties": { "^x-": { "type": "string" } }
+      }
+    },
+    "elements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["element_id"],
+        "additionalProperties": false,
+        "properties": {
+          "element_id": { "type": "string" },
+          "scene_kind": { "type": "string" },
+          "notes":      { "type": "string" }
+        },
+        "patternProperties": { "^x-": { "type": "string" } }
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/bentheautomator/wireframe-spec/main/schemas/tests.schema.json",
+  "title": "tests.md sidecar",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "description", "given", "then"],
+        "additionalProperties": false,
+        "properties": {
+          "id":          { "type": "string" },
+          "description": { "type": "string" },
+          "given":       { "type": "string" },
+          "when":        { "type": "string" },
+          "then":        { "type": "string" },
+          "tags":        { "type": "string" }
+        },
+        "patternProperties": { "^x-": { "type": "string" } }
+      }
+    },
+    "coverage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["component", "scenario", "priority"],
+        "additionalProperties": false,
+        "properties": {
+          "component": { "type": "string" },
+          "scenario":  { "type": "string" },
+          "priority":  { "type": "string", "enum": ["high", "medium", "low"] },
+          "automated": { "type": "string" }
+        },
+        "patternProperties": { "^x-": { "type": "string" } }
+      }
+    }
+  }
+}

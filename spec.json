@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/bentheautomator/wireframe-spec/main/schemas/spec.json",
+  "title": "wireframe-spec spec.json",
+  "description": "Top-level extract output. Aggregates scene-by-scene HTML walk results plus the four optional sidecar blocks (design/specs/policy/tests) parsed from <wireframes_dir>/{design,specs,policy,tests}.md or <project-root>/{...}.md.",
+  "type": "object",
+  "required": ["manifest", "generated", "scenes"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "manifest": {
+      "type": "string",
+      "description": "Relative path to the project-manifest.json that produced this spec."
+    },
+    "generated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "RFC 3339 UTC timestamp of when extract was run."
+    },
+    "scenes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Scene" }
+    },
+    "design": {
+      "description": "Parsed design.md sidecar. Drives `blueprint css`. Omitted when sidecar absent (extract emits no null).",
+      "$ref": "https://raw.githubusercontent.com/bentheautomator/wireframe-spec/main/schemas/design.schema.json"
+    },
+    "specs": {
+      "description": "Parsed specs.md sidecar. Drives `blueprint api`, `blueprint hooks`, `blueprint stores`.",
+      "$ref": "https://raw.githubusercontent.com/bentheautomator/wireframe-spec/main/schemas/specs.schema.json"
+    },
+    "policy": {
+      "description": "Parsed policy.md sidecar. Drives `blueprint policy`.",
+      "$ref": "https://raw.githubusercontent.com/bentheautomator/wireframe-spec/main/schemas/policy.schema.json"
+    },
+    "tests": {
+      "description": "Parsed tests.md sidecar. Drives `blueprint tests`.",
+      "$ref": "https://raw.githubusercontent.com/bentheautomator/wireframe-spec/main/schemas/tests.schema.json"
+    }
+  },
+  "$defs": {
+    "Scene": {
+      "type": "object",
+      "required": ["scene", "source", "scene_kind", "elements"],
+      "additionalProperties": false,
+      "properties": {
+        "scene": {
+          "type": "string",
+          "description": "Scene name (typically the HTML filename without extension)."
+        },
+        "source": {
+          "type": "string",
+          "description": "Relative path to the source HTML file."
+        },
+        "scene_kind": {
+          "type": "string",
+          "description": "One of `manifest.scene_kinds` (defaults: product-screen, arch-diagram)."
+        },
+        "elements": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Element" }
+        }
+      }
+    },
+    "Element": {
+      "type": "object",
+      "required": ["element_id"],
+      "additionalProperties": false,
+      "properties": {
+        "element_id": {
+          "type": "string",
+          "description": "data-element-id from HTML; must satisfy manifest.grammar.element_id_regex."
+        },
+        "component": {
+          "type": ["string", "null"],
+          "description": "data-component from HTML; should be in manifest.components.vocab."
+        },
+        "aria_pattern": {
+          "type": ["string", "null"],
+          "description": "data-aria-pattern from HTML."
+        },
+        "state_variants": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Subset of manifest.state_enum."
+        },
+        "tokens": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "CSS var names referenced by this element; should resolve via manifest.tokens.vars or manifest.tokens.aliases."
+        },
+        "arch_kind": {
+          "type": ["string", "null"],
+          "description": "Arch-diagram primitive kind (lane, box, edge, label, header, nav, footer)."
+        },
+        "arch_target": {
+          "type": ["string", "null"],
+          "description": "For arch_kind=edge: the element_id of the edge's target node."
+        },
+        "children": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Element" }
+        }
+      }
+    }
+  }
+}

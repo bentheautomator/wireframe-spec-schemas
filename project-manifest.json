@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/bentheautomator/wireframe-spec/main/schemas/project-manifest.json",
+  "title": "wireframe-spec project-manifest.json",
+  "description": "Per-project configuration: token + component vocabulary, grammar regex, scene-kind list, wireframe glob, output path. Authored by `wireframe-spec init` and hand-edited.",
+  "type": "object",
+  "required": [
+    "client",
+    "components",
+    "tokens",
+    "grammar",
+    "state_enum",
+    "scene_kinds",
+    "wireframe_glob",
+    "output_spec"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "client": {
+      "type": "string",
+      "description": "Project name (from package.json or root dir name)."
+    },
+    "components": { "$ref": "#/$defs/ComponentVocab" },
+    "tokens": { "$ref": "#/$defs/TokenVocab" },
+    "grammar": { "$ref": "#/$defs/GrammarConfig" },
+    "state_enum": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Allowed data-state-variants values. Defaults: default, selected, running, error, disabled, empty, collapsed, expanded, editing, saving, idle, loading, active, hover."
+    },
+    "scene_kinds": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Allowed data-scene-kind values. Defaults: product-screen, arch-diagram."
+    },
+    "wireframe_glob": {
+      "type": "string",
+      "description": "Glob (relative to project root) for HTML wireframes. Default: docs/planning/wireframes/*.html. Use **/*.html to include nested dirs."
+    },
+    "output_spec": {
+      "type": "string",
+      "description": "Relative path to extract output. Default: docs/planning/wireframes/spec.json."
+    }
+  },
+  "$defs": {
+    "ComponentVocab": {
+      "type": "object",
+      "required": ["library", "vocab", "source_glob", "layout_components"],
+      "additionalProperties": false,
+      "properties": {
+        "library": {
+          "type": "string",
+          "description": "UI library name (e.g. shadcn)."
+        },
+        "vocab": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Canonical component names (PascalCase) discovered from src/components/."
+        },
+        "source_glob": {
+          "type": "string",
+          "description": "Glob for component source files (e.g. src/components/**/*.tsx)."
+        },
+        "layout_components": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Layout-only components (outside src/components/ui/) treated separately by matcher."
+        }
+      }
+    },
+    "TokenVocab": {
+      "type": "object",
+      "required": ["source_file", "source_block", "vars"],
+      "additionalProperties": false,
+      "properties": {
+        "source_file": {
+          "type": "string",
+          "description": "Relative path to the CSS file containing the :root token block."
+        },
+        "source_block": {
+          "type": "string",
+          "description": "CSS selector containing the token vars (default :root)."
+        },
+        "vars": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "List of --var names extracted from the source_block."
+        },
+        "aliases": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "Map canonical role names (e.g. text-strong) to consumer var names (e.g. ink-strong) — #107 Stage1↔Stage2 token-name bridge. Values accept both `--prefixed` and bare forms."
+        }
+      }
+    },
+    "GrammarConfig": {
+      "type": "object",
+      "required": ["element_id_regex", "max_depth"],
+      "additionalProperties": true,
+      "properties": {
+        "element_id_regex": {
+          "type": "string",
+          "description": "Regex every data-element-id must match. Default: ^[a-z][a-z0-9-]*(__[a-z][a-z0-9-]*)*(-[a-z][a-z0-9-]*)*$"
+        },
+        "max_depth": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Maximum nesting depth for element trees. Default: 3."
+        }
+      }
+    }
+  }
+}

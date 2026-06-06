@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/bentheautomator/wireframe-spec/main/schemas/policy.schema.json",
+  "title": "policy.md sidecar",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["role", "resource", "action", "effect"],
+        "additionalProperties": false,
+        "properties": {
+          "role":      { "type": "string" },
+          "resource":  { "type": "string" },
+          "action":    { "type": "string" },
+          "effect":    { "type": "string", "enum": ["allow", "deny"] },
+          "condition": { "type": "string" }
+        },
+        "patternProperties": { "^x-": { "type": "string" } }
+      }
+    },
+    "roles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["role"],
+        "additionalProperties": false,
+        "properties": {
+          "role":     { "type": "string" },
+          "inherits": { "type": "string" },
+          "notes":    { "type": "string" }
+        },
+        "patternProperties": { "^x-": { "type": "string" } }
+      }
+    }
+  }
+}

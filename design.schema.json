@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/bentheautomator/wireframe-spec/main/schemas/design.schema.json",
+  "title": "design.md sidecar",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "tokens": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["token", "value", "use"],
+        "additionalProperties": false,
+        "properties": {
+          "token": { "type": "string" },
+          "value": { "type": "string" },
+          "use":   { "type": "string" }
+        },
+        "patternProperties": { "^x-": { "type": "string" } }
+      }
+    },
+    "typography": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["scale", "size", "weight"],
+        "additionalProperties": false,
+        "properties": {
+          "scale":       { "type": "string" },
+          "size":        { "type": "string" },
+          "weight":      { "type": "string" },
+          "line_height": { "type": "string" }
+        },
+        "patternProperties": { "^x-": { "type": "string" } }
+      }
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["component", "variant", "tokens"],
+        "additionalProperties": false,
+        "properties": {
+          "component": { "type": "string" },
+          "variant":   { "type": "string" },
+          "tokens":    { "type": "string" }
+        },
+        "patternProperties": { "^x-": { "type": "string" } }
+      }
+    }
+  }
+}
