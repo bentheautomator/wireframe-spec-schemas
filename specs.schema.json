@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/bentheautomator/wireframe-spec/main/schemas/specs.schema.json",
+  "$id": "https://raw.githubusercontent.com/bentheautomator/wireframe-spec-schemas/main/specs.schema.json",
   "title": "specs.md sidecar",
   "type": "object",
   "additionalProperties": false,

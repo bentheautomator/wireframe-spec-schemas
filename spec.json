@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/bentheautomator/wireframe-spec/main/schemas/spec.json",
+  "$id": "https://raw.githubusercontent.com/bentheautomator/wireframe-spec-schemas/main/spec.json",
   "title": "wireframe-spec spec.json",
   "description": "Top-level extract output. Aggregates scene-by-scene HTML walk results plus the four optional sidecar blocks (design/specs/policy/tests) parsed from <wireframes_dir>/{design,specs,policy,tests}.md or <project-root>/{...}.md.",
   "type": "object",
@@ -23,19 +23,19 @@
     },
     "design": {
       "description": "Parsed design.md sidecar. Drives `blueprint css`. Omitted when sidecar absent (extract emits no null).",
-      "$ref": "https://raw.githubusercontent.com/bentheautomator/wireframe-spec/main/schemas/design.schema.json"
+      "$ref": "https://raw.githubusercontent.com/bentheautomator/wireframe-spec-schemas/main/design.schema.json"
     },
     "specs": {
       "description": "Parsed specs.md sidecar. Drives `blueprint api`, `blueprint hooks`, `blueprint stores`.",
-      "$ref": "https://raw.githubusercontent.com/bentheautomator/wireframe-spec/main/schemas/specs.schema.json"
+      "$ref": "https://raw.githubusercontent.com/bentheautomator/wireframe-spec-schemas/main/specs.schema.json"
     },
     "policy": {
       "description": "Parsed policy.md sidecar. Drives `blueprint policy`.",
-      "$ref": "https://raw.githubusercontent.com/bentheautomator/wireframe-spec/main/schemas/policy.schema.json"
+      "$ref": "https://raw.githubusercontent.com/bentheautomator/wireframe-spec-schemas/main/policy.schema.json"
     },
     "tests": {
       "description": "Parsed tests.md sidecar. Drives `blueprint tests`.",
-      "$ref": "https://raw.githubusercontent.com/bentheautomator/wireframe-spec/main/schemas/tests.schema.json"
+      "$ref": "https://raw.githubusercontent.com/bentheautomator/wireframe-spec-schemas/main/tests.schema.json"
     }
   },
   "$defs": {

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/bentheautomator/wireframe-spec/main/schemas/project-manifest.json",
+  "$id": "https://raw.githubusercontent.com/bentheautomator/wireframe-spec-schemas/main/project-manifest.json",
   "title": "wireframe-spec project-manifest.json",
   "description": "Per-project configuration: token + component vocabulary, grammar regex, scene-kind list, wireframe glob, output path. Authored by `wireframe-spec init` and hand-edited.",
   "type": "object",
